@@ -50,6 +50,7 @@ namespace Nomina
 
         private void CargarExcel(string path)
         {
+            DataTable dt = new DataTable();
             ExcelPackage.License.SetNonCommercialPersonal("Jose Luis Mota Espeleta");
 
             using (var package = new ExcelPackage(new System.IO.FileInfo(path)))
@@ -62,7 +63,7 @@ namespace Nomina
 
                 ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
 
-                DataTable dt = new DataTable();
+                
 
                 // Leer los encabezados de columna
                 foreach (var col in columnas)
@@ -71,21 +72,44 @@ namespace Nomina
                 }
 
                 // Leer las filas de datos
-                int rowCount = worksheet.Dimension.End.Row;
-                for (int i = 3; i < rowCount; i++)
+                int rowCount = 0;
+                for (int i = 3; i < worksheet.Dimension.End.Row; i++)
                 {
-                    DataRow row = dt.NewRow();
-                    for (int j = 1; j < dt.Columns.Count; j++)
-                    {
-                        row[j-1] = worksheet.Cells[i, j ].Text;
-                        if (j == 2) { 
-                            string[] partes=SepararNombre(worksheet.Cells[i, j].Text);
-                        }
-                    }
-                    dt.Rows.Add(row);
+                    if (worksheet.Cells[i, 1].Text == "")
+                        break;
+                    else
+                        rowCount = rowCount + 1;
                 }
+                rowCount = rowCount + 3;
+                for (int i = 3; i < rowCount; i++)
+                        {
+                            DataRow row = dt.NewRow();
+                            for (int j = 1; j < dt.Columns.Count + 1; j++)
+                            {
+                                if (worksheet.Cells[i, j].Text == "")
+                                    break;
+                                row[j - 1] = worksheet.Cells[i, j].Text;
+                                if (j == 2)
+                                {
+                                    string[] partes = SepararNombre(worksheet.Cells[i, j].Text);
+                                    row[1] = partes[1];
+                                    row[2] = partes[0];
+                                    j++;
+                                }
+                            }
+                            dt.Rows.Add(row);
+                        }
 
 
+            }
+            for (int i = 0; i < 6; i++)
+            { 
+                dgvInformacion.Rows.Add();
+                for (int j = 0; j < dt.Rows.Count - 1; j++)
+                {
+                   
+                    dgvInformacion[i,j].Value = dt.Rows[j][i];
+                }
             }
         }
 

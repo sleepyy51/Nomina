@@ -102,15 +102,18 @@ namespace Nomina
 
 
             }
-            for (int i = 0; i < 6; i++)
-            { 
-                dgvInformacion.Rows.Add();
-                for (int j = 0; j < dt.Rows.Count - 1; j++)
+
+            // Mostrar los datos en el DataGridView
+            dgvInformacion.Rows.Add(dt.Rows.Count);
+
+           for(int i=0;i<dt.Rows.Count;i++)
+           {
+                for(int j = 0; j < 6; j++)
                 {
-                   
-                    dgvInformacion[i,j].Value = dt.Rows[j][i];
+                  dgvInformacion.Rows[i].Cells[j].Value = dt.Rows[i][j].ToString();
                 }
-            }
+
+           }
         }
 
         private string [] SepararNombre(string nombreCompleto)

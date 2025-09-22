@@ -173,9 +173,9 @@ namespace Nomina
                 double hrsExt = Convert.ToDouble(dgvInformacion.Rows[i].Cells[4].Value);
                 double dblTurno = Convert.ToDouble(dgvInformacion.Rows[i].Cells[5].Value);
                 double pagoTotal = (hrsReg * hr) + (hrsExt * he) + (dblTurno * dt);
-                dgvInformacion.Rows[i].Cells[6].Value = hrsReg.ToString();
-                dgvInformacion.Rows[i].Cells[7].Value = hrsExt.ToString();
-                dgvInformacion.Rows[i].Cells[8].Value = dblTurno.ToString();
+                dgvInformacion.Rows[i].Cells[6].Value = (hrsReg*hr).ToString();
+                dgvInformacion.Rows[i].Cells[7].Value = (hrsExt*he).ToString();
+                dgvInformacion.Rows[i].Cells[8].Value = (dblTurno*dt).ToString();
                 dgvInformacion.Rows[i].Cells[9].Value = pagoTotal.ToString();
             }
         }

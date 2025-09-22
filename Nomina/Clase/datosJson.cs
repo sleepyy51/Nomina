@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Nomina.Recursos
 {
-    internal class datosJson
+    public class datosJson
     {
         public double horasRegulares { get; set; }
         public double horasExtras { get; set; }

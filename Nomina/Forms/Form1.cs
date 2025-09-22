@@ -140,11 +140,11 @@ namespace Nomina
             pago.ShowDialog();
             if(pago.IsDisposed)
             {
-                if(!File.Exists(rutaJson))
+                if (!File.Exists(rutaJson))
                 {
-                    File.Create(rutaJson);
-                    File.WriteAllText(rutaJson, "{\"horasRegulares\":0.0,\"horasExtras\":0.0,\"dobleTurno\":0.0}");
-                    return;
+                    datosJson valoresDefault = new datosJson(0.0, 0.0, 0.0);
+                    string json = JsonConvert.SerializeObject(valoresDefault, Formatting.Indented);
+                    File.WriteAllText(rutaJson, json);
                 }
                 try
                 { 

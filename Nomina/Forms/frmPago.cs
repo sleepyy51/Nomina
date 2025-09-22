@@ -47,8 +47,6 @@ namespace Nomina
             };
 
             string json = JsonConvert.SerializeObject(dato, registrosJson);
-            //string fullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaJson);
-            //Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
             File.WriteAllText(rutaJson, json);
         }
 
